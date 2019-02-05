@@ -1,36 +1,73 @@
 #include<stdio.h>
-int power2(int a,int b)
-{
-	if(b==0) return 1;
-	else return a*power2(a,b-1);
-}
-
-int power1(int a,int b)
-{
-	int c[100000];
-	int i=0,j,p=0;
-	while(b>0)
+#include<string.h>
+struct biginteger{
+	int digit[1000];
+	int size;
+	void init()
 	{
-		c[i++]=b%2;
-		b/=2;
+		int i;
+		for(i=0;i<1000;i++)
+		{
+			digit[i]=0;
+		}
+		size=0;
 	}
-	for(j=0;j<i;j++)
+	void set(char str[])
 	{
-		p+=power2(2,j)*c[j];
+		init();
+		int i,c,t,j=0;
+		int l=strlen(str);
+		int carry=0;
+		for(i=l-1,c=1,t=0;i>=0;i--)
+		{
+			t+=(str[i]-'0')*c;
+			c*=10;
+			j++;
+			if(j==4||i==0)
+			{
+				digit[size++]=t;
+				t=0;
+				c=1;
+				j=0;
+			}
+		}
 	}
-	return power2(a,p);
-}
-
+	void output()
+	{
+		int i;
+		for(i=size-1;i>=0;i--)
+		{
+			if(i!=size-1) printf("%4d",digit[i]);
+			else printf("%d",digit[i]);
+		}
+	}
+	biginteger operator +(const biginteger &a) const
+	{
+		biginteger r;
+		r.init();
+		int i,tmp=0;
+		int carry=0;
+		for(i=0;i<a.size||i<size;i++)
+		{
+			tmp=digit[i]+a.digit[i]+carry;
+			carry=tmp/10000;
+			tmp%=10000;
+			r.digit[r.size++]=tmp;
+		}
+		if(carry!=0)
+		{
+			r.digit[r.size++]=carry;
+		}
+		return r;
+	}
+}a,b,c;
+char str[1000],str1[1000];
 void main()
 {
-	int a,b,w=0;
-	while(scanf("%d%d",&a,&b)!=EOF)
+	while(scanf("%s%s",str,str1)!=EOF)
 	{
-		if(a==0&&b==0) break;
-		else if(a>=1&&a<=10000&&b>=1&&b<=10000)
-		{
-			w=power1(a,b);
-			printf("%d",w%1000);
-		}
+		a.set(str);b.set(str1);
+		c=a+b;
+		c.output();
 	}
 }
