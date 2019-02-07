@@ -1,0 +1,40 @@
+#include<stdio.h>
+int tree[10000000];
+int sum[10000000];
+int findroot(int x)
+{
+	int t;
+	if(tree[x]==-1) return x;
+	else
+	{
+		t=findroot(tree[x]);
+		tree[x]=t;
+		return t;
+	}
+}
+void main()
+{
+	int n,a,b,i;
+	while(scanf("%d",&n)!=EOF)
+	{
+		for(i=0;i<10000000;i++)
+		{
+			tree[i]=-1;
+			sum[i]=1;
+		}
+		while(n--!=0)
+		{
+			scanf("%d%d",&a,&b);
+			a=findroot(a);
+			b=findroot(b);
+			if(a!=b) tree[a]=b;
+			sum[b]+=sum[a];
+		}
+		int ans=1;
+		for(i=0;i<10000000;i++)
+		{
+			if(tree[i]==-1&&sum[i]>ans) ans=sum[i];
+		}
+		printf("%d",ans);
+	}
+}
