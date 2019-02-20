@@ -1,0 +1,18 @@
+#include<stdio.h>
+void main()
+{
+	int a,num[100];
+	int i=0,j;
+	while(scanf("%d",&a)!=EOF)
+	{
+		while(a>0)
+		{
+			num[i++]=a%10;
+			a/=10;
+		}
+		for(j=0;j<i;j++)
+		{
+			printf("%d",num[j]);
+		}
+	}
+}
