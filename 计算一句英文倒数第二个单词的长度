@@ -1,0 +1,31 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+void main(){
+	char s[100];
+	printf("请输入一行英文：");
+	gets(s);
+	int c=strlen(s);
+	int i,temp=0,tmp=0;
+	bool success=false;
+	bool successing=false;
+	for(i=c-1;i>=0;i--)
+	{
+		if(s[i]==' ')
+		{
+			if(success==false)
+			{
+				success=true;
+				tmp=i;
+			}
+			else if(successing==false)
+			{
+				temp=i;
+				successing=true;
+			}
+		}
+		if(successing==true) break;
+	}
+	printf("%d",tmp-temp-1);
+	system("pause");
+}
