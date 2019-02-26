@@ -1,0 +1,27 @@
+#include<stdio.h>
+#include<string.h>
+void main()
+{
+	char s[200];
+	while(gets(s))
+	{
+		int i=0,j;
+		int c=strlen(s);
+		while(i<c)
+		{
+			if(s[i]>='a'&&s[i]<='z')
+			{
+				for(j=i;j+1<c;j++)
+				{
+					s[j]=s[j+1];
+				}
+				c--;
+			}
+			else i++;
+		}
+		for(i=0;i<c;i++)
+		{
+			putchar(s[i]);
+		}
+	}
+}
