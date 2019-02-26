@@ -1,0 +1,33 @@
+#include<stdio.h>
+int num[1000];
+int power(int a,int b)
+{
+	if(b==0) return 1;
+	else return a*power(a,b-1);
+}
+void main()
+{
+	int a,b;
+	while(scanf("%d%d",&a,&b)!=EOF)
+	{
+		if(a==0||b==0) break;
+		int i=0,j;
+		while(b>0)
+		{
+			num[i++]=b%2;
+			b/=2;
+		}
+		int ans=1,count=0,t=1;
+		for(j=0;j<i;j++)
+		{
+			if(num[j]==1)
+			{
+				count=ans;
+			}
+			ans*=2;
+			t*=power(a,count);
+			t%=1000;
+		}
+		printf("%d",t);
+	}
+}
