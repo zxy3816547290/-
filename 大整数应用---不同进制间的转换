@@ -1,0 +1,125 @@
+#include<stdio.h>
+#include<string.h>
+struct biginteger{
+	int digit[1000];
+	int size;
+	void init()
+	{
+		int i;
+		for(i=0;i<1000;i++) digit[i]=0;
+		size=0;
+	}
+	void set(int x)
+	{
+		init();
+		while(x>0)
+		{
+			digit[size++]=x%10000;
+			x/=10000;
+		}
+	}
+	void output()
+	{
+		int i;
+		for(i=size-1;i>=0;i--)
+		{
+			if(i!=size-1) printf("4d",digit[i]);
+			else printf("%d",digit[i]);
+		}
+	}
+	biginteger operator +(const biginteger &a) const{
+		biginteger r;
+		r.init();
+		int i=0,carry=0;
+		while(digit[i]>0||a.digit[i]>0)
+		{
+			r.digit[i]=(digit[i]+a.digit[i]+carry)%10000;
+			carry=(digit[i]+a.digit[i]+carry)/10000;
+			i++;
+		}
+		if(carry!=0) r.digit[i++]=carry;
+		r.size=i;
+		return r;
+	}
+	biginteger operator *(int a) const{
+		biginteger r;
+		r.init();
+		int i=0,carry=0;
+		while(digit[i]>0)
+		{
+			r.digit[i]=(a*digit[i]+carry)%10000;
+			carry=(a*digit[i]+carry)/10000;
+			i++;
+		}
+		if(carry!=0) r.digit[i++]=carry;
+		r.size=i;
+		return r;
+	}
+	biginteger operator /(int a) const{
+		biginteger r;
+		r.init();
+		int i,carry=0;
+		for(i=size-1;i>=0;i--)
+		{
+			r.digit[i]=(digit[i]+carry)/a;
+			carry=(digit[i]+carry)%a;
+			carry*=10000;
+		}
+		r.size=size;
+		return r;
+	}
+	int operator %(int a) const{
+		biginteger r;
+		r.init();
+		int i,carry=0;
+		for(i=size-1;i>=0;i--)
+		{
+			r.digit[i]=(digit[i]+carry)/a;
+			carry=(digit[i]+carry)%a;
+			if(i!=0) carry*=10000;
+		}
+		return carry;
+	}
+}a,b,c;
+void main()
+{
+	char str[1000],ans[1000];
+	int m,n,t;
+	while(scanf("%d%d",&m,&n)!=EOF)
+	{
+		if(m<2||m>36||n<2||n>36) break;
+		scanf("%s",str);
+		int l=strlen(str);
+		a.set(0);
+		b.set(1);
+		int i;
+		for(i=l-1;i>=0;i--)
+		{
+			if(str[i]>='a'&&str[i]<='z')
+			{
+				t=str[i]-'a'+10;
+			}
+			else if(str[i]>='A'&&str[i]<='Z')
+			{
+				t=str[i]-'A'+10;
+			}
+			else if(str[i]>='0'&&str[i]<='9')
+			{
+				t=str[i]-'0';
+			}
+			a=a+b*t;
+			b=b*m;
+		}
+		int size=0;
+		int temp=0;
+		while(a.digit[0]!=0)
+		{
+			temp=a%n;
+			if(temp>=10) ans[size++]=temp-10+'a';
+			else ans[size++]=temp+'0';
+			a=a/n;
+		}
+		for(i=size-1;i>=0;i--) printf("%c",ans[i]);
+		printf("\n");
+	}
+}
