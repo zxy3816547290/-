@@ -1,0 +1,75 @@
+#include<stdio.h>
+#include<vector>
+using namespace std;
+struct edge{
+	int next;
+	int p;
+	int d;
+};
+vector<edge>e[1000];
+bool mark[1000];
+int dis[1000];
+int cost[1000];
+void main()
+{
+	int n,m;
+	while(scanf("%d%d",&n,&m)!=EOF)
+	{
+		if(n==0&&m==0) break;
+		int i,j;
+		for(i=1;i<=n;i++) e[i].clear();
+		while(m--)
+		{
+			int a,b,d,p;
+			scanf("%d%d%d%d",&a,&b,&d,&p);
+			edge tmp;
+			tmp.d=d;
+			tmp.p=p;
+			tmp.next=a;
+			e[b].push_back(tmp);
+			tmp.next=b;
+			e[a].push_back(tmp);
+		}
+		for(i=1;i<=n;i++)
+		{
+			mark[i]=false;
+			dis[i]=-1;
+			cost[i]=0;
+		}
+		int s,t;
+		scanf("%d%d",&s,&t);
+		int newp=s;
+		mark[s]=true;
+		dis[s]=0;
+		cost[s]=0;
+		for(i=1;i<=n-1;i++)
+		{
+			for(j=0;j<e[newp].size();j++)
+			{
+				int t=e[newp][j].d;
+				int c=e[newp][j].next;
+				int v=e[newp][j].p;
+				if(mark[c]==true) continue;
+				if(dis[c]==-1||dis[c]>dis[newp]+t||dis[c]==dis[newp]+t&&cost[c]<cost[newp]+v)
+				{
+					dis[c]=dis[newp]+t;
+					cost[c]=cost[newp]+v;
+				}
+			}
+			int min=1000000;
+			for(j=1;j<=n;j++)
+			{
+				if(mark[j]==true) continue;
+				if(dis[j]==-1) continue;
+				if(cost[j]==0) continue;
+				if(min>dis[j])
+				{
+					min=dis[j];
+					newp=j;
+				}
+			}
+			mark[newp]=true;
+		}
+		printf("%d %d",dis[t],cost[t]);
+	}
+}
