@@ -1,0 +1,58 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+struct student{
+	char name[10];
+	char teacher[10];
+	struct student *next;
+};
+struct begin{
+	student *head;
+};
+void main()
+{
+	int n;
+	scanf("%d",&n);
+	begin *a,*b,*c;
+	a=(begin*)malloc(sizeof(begin));a->head=NULL;
+	b=(begin*)malloc(sizeof(begin));b->head=NULL;
+	c=(begin*)malloc(sizeof(begin));c->head=NULL;
+	while(n--)
+	{
+		student *temp;
+		temp=(student*)malloc(sizeof(student));
+		scanf("%s%s",temp->name,temp->teacher);
+		int choice;
+		scanf("%d",&choice);
+		switch(choice)
+		{
+		case 0:temp->next=a->head;a->head=temp;break;
+		case 1:temp->next=b->head;b->head=temp;break;
+		case 2:temp->next=c->head;c->head=temp;break;
+		}
+	}
+	student *scan1=a->head;
+	printf("A组:");
+	while(scan1!=NULL)
+	{
+		printf("%s\t%s",scan1->name,scan1->teacher);
+		scan1=scan1->next;
+	}
+	printf("\n");
+	student *scan2=b->head;
+	printf("B组:");
+	while(scan2!=NULL)
+	{
+		printf("%s\t%s",scan2->name,scan2->teacher);
+		scan2=scan2->next;
+	}
+	printf("\n");
+	student *scan3=c->head;
+	printf("C组:");
+	while(scan3!=NULL)
+	{
+		printf("%s\t%s",scan3->name,scan3->teacher);
+		scan3=scan3->next;
+	}
+	printf("\n");
+}
