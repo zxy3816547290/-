@@ -1,0 +1,20 @@
+#include<stdio.h>
+#include<stdlib.h>
+int jiecheng(int a)
+{
+	if(a==1) return 1;
+	else return a*jiecheng(a-1);
+}
+void main()
+{
+	int m,n;
+	while(scanf("%d%d",&m,&n)!=EOF)
+	{
+		if(n>m) break;
+		int c=jiecheng(m);
+		int d=jiecheng(m-n);
+		int a=c/d;
+		printf("%d",a);
+		system("pause");
+	}
+}
