@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<stdlib.h>
+bool isprime(int a)
+{
+	int i;
+	for(i=2;i<a;i++)
+	{
+		if(a%i==0)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+void main()
+{
+	int i,ans=1,c=2;
+	printf("%4d",c);
+	for(i=3;i<=1000;i++)
+	{
+		if(isprime(i)==true)
+		{
+			printf("%4d",i);
+			ans++;
+		}
+		if(ans%8==0)
+		{
+			printf("\n");
+		}
+	}
+	system("pause");
+}
