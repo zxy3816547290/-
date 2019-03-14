@@ -1,0 +1,26 @@
+#include<stdio.h>
+#include<stdlib.h>
+int ans=0;
+int count[10];
+void reverse(int a)
+{
+	while(a>0)
+	{
+		count[ans++]=a%10;
+		a/=10;
+	}
+}
+void main()
+{
+	int n;
+	while(scanf("%d",&n)!=EOF)
+	{
+		reverse(n);
+		int i;
+		for(i=0;i<ans;i++)
+		{
+			printf("%d",count[i]);
+		}
+	}
+	system("pause");
+}
