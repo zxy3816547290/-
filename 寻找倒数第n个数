@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+	int data;
+	node *next;
+};
+node *create()
+{
+	node *t;
+	int n;
+	t=(node*)malloc(sizeof(node));
+	t->next=NULL;
+	node *head=t;
+	node *rear=t;
+	while(scanf("%d",&n)!=EOF&&n!=0)
+	{
+		node *p;
+		p=(node*)malloc(sizeof(node));
+		p->data=n;
+		rear->next=p;
+		rear=p;
+	}
+	rear->next=NULL;
+	return head;
+}
+int reNth(node *p,int n)
+{
+	node *t=p->next;
+	int i;
+	node *q=t;
+	for(i=0;i<n;i++)
+	{
+		t=t->next;
+		if(!t)
+		{
+			return -1;
+		}
+	}
+	while(t)
+	{
+		t=t->next;
+		q=q->next;
+	}
+	return q->data;
+}
+void main()
+{
+	node *t=create();
+	int n;
+	scanf("%d",&n);
+	int c=reNth(t,n);
+	printf("%d",c);
+	system("pause");
+}
