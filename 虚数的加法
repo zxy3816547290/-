@@ -1,0 +1,19 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct num{
+	int sb;
+	int xb;
+};
+void main()
+{
+	num a,b;
+	scanf("%d%d",&a.sb,&a.xb);
+	scanf("%d%d",&b.sb,&b.xb);
+	printf("%d+%di\n",a.sb,a.xb);
+	printf("%d+%di\n",b.sb,b.xb);
+	num c;
+	c.sb=a.sb+b.sb;
+	c.xb=a.xb+b.xb;
+	printf("%d+%di\n",c.sb,c.xb);
+	system("pause");
+}
