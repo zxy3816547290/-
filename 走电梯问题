@@ -1,0 +1,26 @@
+#include<stdio.h>
+#include<algorithm>
+#include<stdlib.h>
+using namespace std;
+bool cmp(int a,int b)
+{
+  return a<b;
+}
+int a[101];
+void main()
+{
+  int n;
+  while(scanf("%d",&n)!=EOF)
+  {
+    int i;
+    for(i=0;i<n;i++)
+    {
+      scanf("%d",&a[i]);
+    }
+    sort(a,a+n,cmp);
+    int count=0;
+    count+=a[n-1]*6+n*5+(a[n-1]-1)*4;
+    printf("%d",count);
+	system("pause");
+  }
+}
