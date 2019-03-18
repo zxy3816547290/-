@@ -1,0 +1,72 @@
+#include<stdio.h>
+#include<stdlib.h>
+char str[1001];
+int main()
+{
+	int t;
+	scanf("%d",&t);
+	while(t--)
+	{
+		gets(str);
+		int i=0,j;
+		while(str[i])
+		{
+			if(str[i]=='+'||str[i]=='*')
+			{
+				if(str[i]=='+')
+				{
+					if(((str[i-2]-'0')+(str[i-1]-'0'))/10>0)
+					{
+						str[i]=((str[i-2]-'0')+(str[i-1]-'0'))%10+'0';
+				    	str[i-1]=((str[i-2]-'0')+(str[i-1]-'0'))/10+'0';
+				    	for(j=i-1;str[j];j++)
+				    	{
+				     		str[j-1]=str[j];
+				    	}
+						str[j-1]='\0';
+					}
+					else
+					{
+						str[i]=(str[i-2]-'0')+(str[i-1]-'0')+'0';
+						for(j=i;str[j];j++)
+				    	{
+				     		str[j-2]=str[j];
+				    	}
+						str[j-2]='\0';
+					}
+					i=0;
+					continue;
+				}
+				else if(str[i]=='*')
+				{
+					
+					if(((str[i-2]-'0')*(str[i-1]-'0'))/10>0)
+				    {
+					    str[i]=((str[i-2]-'0')+(str[i-1]-'0'))%10+'0';
+				        str[i-1]=((str[i-2]-'0')+(str[i-1]-'0'))/10+'0';
+				        for(j=i-1;str[j];j++)
+				       	{
+				  	    	str[j-1]=str[j];
+				      	}
+					   	str[j-1]='\0';
+				    }
+					else
+					{
+						str[i]=(str[i-2]-'0')*(str[i-1]-'0')+'0';
+						for(j=i;str[j];j++)
+				    	{
+				     		str[j-2]=str[j];
+				    	}
+						str[j-2]='\0';
+					}
+					i=0;
+					continue;
+				}
+			}
+			i++;
+		}
+		puts(str);
+	}
+	system("pause");
+	return 0;
+}
