@@ -1,0 +1,28 @@
+#include<stdio.h>
+#include<string.h>
+char str1[100];
+char str2[100];
+int strlength(char *str1,char *str2)
+{
+	int i,j;
+	for(i=0;str1[i];i++);
+	for(j=0;str2[j];j++);
+	return i>j?1:0;
+}
+int main()
+{
+	while(gets(str1))
+	{
+		gets(str2);
+		int c=strlength(str1,str2);
+		if(c==1)
+		{
+			puts(str1);
+		}
+		else
+		{
+			puts(str2);
+		}
+	}
+	return 0;
+}
